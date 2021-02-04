@@ -957,6 +957,33 @@ int main (int argc, char* argv [])
     */
     InitLineInfo ();
 
+    const char* prg_name =
+#ifndef _WIN32
+     strrchr(ArgVec[0],'/');
+#else
+     strrchr(ArgVec[0],'\\');
+#endif
+
+    if(!prg_name)
+        prg_name = ArgVec[0];
+    
+    if(strncmp(prg_name,"wc65c816",8)==0
+        | strncmp(prg_name,"wc65C816",8)==0
+        | strncmp(prg_name,"65c816",6)==0
+        | strncmp(prg_name,"65C816",6)==0
+        | strncmp(prg_name,"wdc65c816",9)==0
+        | strncmp(prg_name,"wdc65C816",9)==0
+        | strncmp(prg_name,"65816",5)==0)
+        SetCPU(CPU_65816);
+    else if(strncmp(prg_name,"6502",4)==0)
+        SetCPU(CPU_6502);
+    else if(strncmp(prg_name,"6502x",5)==0
+        | strncmp(prg_name,"6502X",5)==0)
+        SetCPU(CPU_6502X);
+    else if(strncmp(prg_name,"65c02",5)==0
+        | strncmp(prg_name,"65C02",5)==0)
+        SetCPU(CPU_65C02);
+
     /* Check the parameters */
     I = 1;
     while (I < ArgCount) {

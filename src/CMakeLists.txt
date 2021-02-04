@@ -38,8 +38,6 @@ target_link_libraries(ar65 common)
 
 install(TARGETS ar65)
 
-
-
 set(CA65_INCLUDE_PATH "include" CACHE STRING "The path to install (and search for) include files with ca65 to")
 
 if(IS_ABSOLUTE CA65_INCLUDE_PATH)
@@ -90,3 +88,5 @@ add_executable(ld65 ld65/asserts.c ld65/asserts.h ld65/bin.c ld65/bin.h ld65/bin
 
 target_link_libraries(ld65 common)
 install(TARGETS ld65) 
+
+install(SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/install_target_symlinks.cmake)
